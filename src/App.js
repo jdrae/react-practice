@@ -8,7 +8,8 @@ class App extends Component{
   constructor(props){
     super(props); //초기화
     this.state = {
-      mode: 'welcome',
+      selected_content_id:2,
+      mode: 'read',
       subject: {title:'Recipe', sub: 'World Wide Recipe'},
       welcome: {title:"Welcome", desc: "Hello"},
       contents: [
@@ -25,8 +26,15 @@ class App extends Component{
       _title= this.state.welcome.title;
       _desc= this.state.welcome.desc;
     }else if(this.state.mode === 'read'){
-      _title= this.state.contents[0].title;
-      _desc= this.state.contents[0].desc;
+      var i = 1;
+      while(i<= this.state.contents.length){
+        var data = this.state.contents[i];
+        if(data.id === this.state.selected_content_id){
+          _title= data.title;
+          _desc= data.desc;
+        }
+        i= i+1;
+      }
     }
     return (
       // JSX 코드
@@ -34,8 +42,19 @@ class App extends Component{
         <Subject 
         title= {this.state.subject.title}
         sub = {this.state.subject.sub}
+        onChangePage = {function(){
+          this.setState({mode:'welcome'})
+        }.bind(this)}
         ></Subject>
-        <TOC data={this.state.contents}></TOC>
+        <TOC 
+        data={this.state.contents}
+        onChangePage = {function(id){
+          this.setState({
+            mode:'read',
+            selected_content_id: Number(id) // string 으로 들어옴
+          });
+        }.bind(this)}
+        ></TOC>
         <Content title={_title} desc={_desc}></Content>
       </div>
     );
