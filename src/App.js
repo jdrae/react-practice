@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TOC from './components/TOC'
 import Content from './components/Content'
 import Subject from  './components/Subject'
+import './App.css'
 
 export default class App extends Component{
     constructor(props){
@@ -9,7 +10,7 @@ export default class App extends Component{
         this.state = {
           selected_content_id:2,
           mode: 'read',
-          subject: {title:'Recipe', sub: 'World Wide Recipe'},
+          subject: {title:'DaRecipe', sub: 'World Wide Recipe'},
           welcome: {title:"Welcome", desc: "Hello"},
           contents: [
             {id:1, title: 'Hwachae', desc:'Hwachae is summer desert'},
@@ -38,7 +39,8 @@ export default class App extends Component{
         }
 
         return(
-        <div>
+        <div className="App">
+            <div className="App-header">
             <Subject 
             title= {this.state.subject.title}
             sub = {this.state.subject.sub}
@@ -46,7 +48,7 @@ export default class App extends Component{
             this.setState({mode:'welcome'})
             }.bind(this)}
             ></Subject>
-            
+            </div>
             <TOC 
             data={this.state.contents}
             onChangePage = {function(id){
