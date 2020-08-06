@@ -20,7 +20,24 @@ export default class App extends Component{
       }
 
     render(){
-       return(
+        var _title, _desc = null;
+        if(this.state.mode ==='welcome'){
+            _title = this.state.welcome.title;
+            _desc = this.state.welcome.desc;
+        }
+        else if(this.state.mode === 'read'){
+            const idx = this.state.selected_content_id
+            const contents = this.state.contents
+            for(var i=0; i<contents.length; i++){
+                var data = contents[i];
+                if(data.id === idx){
+                    _title = data.title;
+                    _desc = data.desc;
+                }
+            }
+        }
+
+        return(
         <div>
             <Subject 
             title= {this.state.subject.title}
@@ -39,7 +56,7 @@ export default class App extends Component{
             });
             }.bind(this)}
             ></TOC>
-
+            <Content title={_title} desc={_desc}></Content>
         </div>
         ); 
     }
