@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TOC from './components/TOC'
 import Content from './components/Content'
 import Subject from  './components/Subject'
+import Measure from  './components/Measure'
 import './App.css'
 
 export default class App extends Component{
@@ -59,6 +60,7 @@ export default class App extends Component{
             }.bind(this)}
             ></TOC>
             <Content title={_title} desc={_desc}></Content>
+            <Measure/>
         </div>
         ); 
     }
