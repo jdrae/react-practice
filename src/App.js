@@ -113,9 +113,25 @@ export default class App extends Component{
             }.bind(this)}
             ></TOC>
             <Control onChangeMode={function(_mode){
-                this.setState({
-                    mode: _mode
-                })
+                if(_mode === 'delete'){
+                    if(window.confirm('really?')){
+                        var _contents = Array.from(this.state.contents);
+                        for(var i = 0; i<_contents.length; i++){
+                            if(_contents[i].id === this.state.selected_content_id){
+                                _contents.splice(i,1);
+                                break;
+                            }
+                        }
+                        this.setState({
+                            mode: 'welcome',
+                            contents: _contents
+                        })
+                    }
+                } else{
+                    this.setState({
+                        mode: _mode
+                    })
+                }
             }.bind(this)}></Control>
 
 
