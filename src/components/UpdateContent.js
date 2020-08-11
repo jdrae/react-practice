@@ -1,19 +1,14 @@
 import React, {Component} from 'react';
 
-class CreateContent extends Component{
+class UpdateContent extends Component{
     render(){
       return (
         <div>
           <article>
-            <h2>Create</h2>
+            <h2>Update</h2>
             <form action = "/create_process" method="post"
               onSubmit={function(e){
                 e.preventDefault();
-                this.props.onSubmit(
-                  e.target.title.value,
-                  e.target.desc.value
-                );
-                alert('Submit');
               }.bind(this)}
             >
               <p><input type="text" name="title" placeholder={this.props.title}></input></p>
@@ -30,4 +25,4 @@ class CreateContent extends Component{
     }
   }
 
-  export default CreateContent;
+  export default UpdateContent;
