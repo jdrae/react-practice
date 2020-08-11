@@ -15,7 +15,7 @@ export default class App extends Component{
         this.max_content_id=3;
         this.state = {
           selected_content_id:2,
-          mode: 'update',
+          mode: 'welcome',
           subject: {title:'DaRecipe', sub: 'World Wide Recipe'},
           welcome: {title:"Welcome", desc: "Hello"},
           contents: [
@@ -26,7 +26,8 @@ export default class App extends Component{
         }
     }
     
-    getreadContent(idx){
+    getReadContent(){
+        const idx = this.state.selected_content_id
         const contents = this.state.contents
         for(var i=0; i<contents.length; i++){
             var data = contents[i];
@@ -44,8 +45,7 @@ export default class App extends Component{
             _article = <ReadContent title={_title} desc={_desc}></ReadContent>
         }
         else if(this.state.mode === 'read'){
-            const idx = this.state.selected_content_id
-            var data = this.getreadContent(idx)
+            var data = this.getReadContent()
             _title = data.title;
             _desc = data.desc;
             _article = <ReadContent title={_title} desc={_desc}></ReadContent>
@@ -62,14 +62,29 @@ export default class App extends Component{
                     {id:this.max_content_id, title:_title, desc:_desc}
                 )
                 this.setState({
-                    contents: _contents
+                    contents: _contents,
+                    mode: 'read',
+                    selected_content_id: this.max_content_id
                 });
             }.bind(this)}></CreateContent>
         }
         else if(this.state.mode === 'update'){
-            _article = <UpdateContent onSubmit={function(_title,_desc){
-                
-            }.bind(this)}></UpdateContent>
+            var data = this.getReadContent();
+            _article = <UpdateContent data={data} onSubmit={
+                function(_id,_title,_desc){
+                    // 또는 아래와 같이 복제
+                    var _contents = Array.from(this.state.contents);
+                    for(var i=0; i<this.state.contents.length; i++){
+                        if(_contents[i].id == _id){
+                            _contents[i] = {id:_id, title:_title, desc:_desc};
+                            break;
+                        }
+                    }
+                    this.setState({
+                        contents:_contents,
+                        mode: 'read'
+                    });
+                }.bind(this)}></UpdateContent>
         }
 
         return _article
