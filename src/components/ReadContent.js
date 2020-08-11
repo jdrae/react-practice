@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Heart from './Heart'
 
-class Content extends Component{
+class ReadContent extends Component{
     render(){
       return (
         <div>
@@ -15,4 +15,4 @@ class Content extends Component{
     }
   }
 
-  export default Content;
+  export default ReadContent;
