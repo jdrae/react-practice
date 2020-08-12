@@ -6,10 +6,15 @@ class ReadContent extends Component{
       return (
         <div>
           <article>
-            <h2>{this.props.title}</h2>
-            {this.props.desc}
+            <div className="contentHeader">
+            <div className="contentTitle">{this.props.title}</div>
+            <Heart/>
+            </div>
+            <p>{this.props.desc}
+            
+            
+            </p>
           </article>
-          <Heart/>
         </div>
       );
     }

@@ -14,10 +14,11 @@ class Heart extends Component{
     }
 
     render(){
+      var h = "r"
+      {this.state.isLiked ? h="s" : h="r"}
+      var path = "fa"+h+" fa-heart"
       return (
-        <button onClick={this.handleClick}>
-            {this.state.isLiked ? "unlike" : "like"}
-        </button>
+        <i class={path} onClick={this.handleClick}></i>
       );
     }
   }

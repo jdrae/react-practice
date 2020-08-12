@@ -1,0 +1,138 @@
+/* base */
+body{
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fdfdfd;
+    color: #2c2c2c;
+    margin: 0;
+    padding: 0;
+}
+
+a, li{
+    text-decoration: none;
+    color: #2c2c2c;
+}
+
+
+.App{
+    width : 70%;
+    margin: auto;
+}
+
+/* Header */
+.App-header{
+    background-color: #ffe8df;
+    padding-left : 20px;
+    margin: 25px 0px;
+    text-align: center;
+}
+
+.App-header h1{
+    font-family: 'Pacifico', cursive;
+    font-size: 40px;
+    font-weight: normal;
+}
+
+.App-header p{
+    padding-bottom : 15px
+}
+
+/* Measure */
+.measure{
+    width: 200px;
+    height: 130px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 10%;
+    right: 7%;
+
+}
+
+.measure input{
+    border: none;
+    border-bottom: solid 1px #666;
+}
+
+.measure input:focus{
+    border-bottom: solid 1px #666;
+    background-color: #ffe8df;
+}
+
+/* TOC */
+.cloud {
+    display: inline;
+    list-style-type: none;
+    margin: 30px;
+}
+.cloud li {
+    list-style: none;
+    display: inline;
+    margin: 5px;
+    padding: 5px 6px;
+    border-radius: 10%;
+}
+
+.cloud li:nth-of-type(3n + 1) {
+    background-color: #ffd793;
+}
+.cloud li:nth-of-type(3n+2) {
+    background-color: #f7c5a8;
+}
+.cloud li:nth-of-type(3n) {
+    background-color: #a7cccc;
+}
+
+/* Content */
+.content{
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.contentHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.contentHeader i{
+    font-size:25px;
+    color:#a7cccc;
+}
+.contentHeader i:hover{
+    cursor: pointer;
+}
+
+
+.contentTitle{
+    font-family: 'Raleway', sans-serif;
+    font-size: 25px;
+}
+
+.content p{
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+/* control */
+.control {
+    display: inline;
+    list-style-type: none;
+    margin: 30px;
+}
+.control li {
+    list-style: none;
+    display: inline;
+    float: right;
+    margin: 5px;
+    padding: 5px 6px;
+    border-radius: 10%;
+}
+
+.control li:hover{
+    background-color: #ffe8df;
+}
+
+.control input{
+    border: none;
+    background-color: transparent;
+}

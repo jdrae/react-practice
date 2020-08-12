@@ -9,7 +9,7 @@ class Subject extends Component{
             // debugger; //chrome 에 쓰이는 중단점
             this.props.onChangePage(); //App.js 에서 전달됨
           }.bind(this)}>{this.props.title}</a></h1>
-          {this.props.sub}
+          <p>{this.props.sub}</p>
         </header>
       );
     }

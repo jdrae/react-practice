@@ -16,12 +16,15 @@ export default class App extends Component{
         this.state = {
           selected_content_id:2,
           mode: 'welcome',
-          subject: {title:'DaRecipe', sub: 'World Wide Recipe'},
+          subject: {title:'DaRecipe', sub: 'What do Koreans eat?'},
           welcome: {title:"Welcome", desc: "Hello"},
           contents: [
             {id:1, title: 'Hwachae', desc:'Hwachae is summer desert'},
             {id:2, title: 'Bibimbap', desc:'Bibimbap is widely beloved main dish'},
             {id:3, title: 'Bulgogi', desc: 'Bulgogi is fried meat with sweet sauce'},
+            {id:4, title: 'Tteokbokki', desc:'Tteokbokki is'},
+            {id:5, title: 'Corncheese', desc:'Corncheese is'},
+            {id:6, title: 'Mandu', desc: 'Mandu is'},
           ]
         }
     }
@@ -103,6 +106,7 @@ export default class App extends Component{
             }.bind(this)}
             ></Subject>
             </div>
+
             <TOC 
             data={this.state.contents}
             onChangePage = {function(id){
@@ -112,6 +116,12 @@ export default class App extends Component{
             });
             }.bind(this)}
             ></TOC>
+
+            <div className="content">
+            {this.getContent()}
+            </div>
+
+            <div className="control">
             <Control onChangeMode={function(_mode){
                 if(_mode === 'delete'){
                     if(window.confirm('really?')){
@@ -133,10 +143,12 @@ export default class App extends Component{
                     })
                 }
             }.bind(this)}></Control>
+            </div>
+            
 
-
-            {this.getContent()}
+            <div className="measure">
             <Measure/>
+            </div>
         </div>
         ); 
     }

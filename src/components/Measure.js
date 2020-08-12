@@ -39,7 +39,7 @@ class MeasurementInput extends Component {
       const scale = this.props.scale;
       return (
         <fieldset>
-          <legend>Enter measurement in {scaleNames[scale]}:</legend>
+          <legend>{scaleNames[scale]}:</legend>
           <input value={measurement}
                  onChange={this.handleChange} />
         </fieldset>

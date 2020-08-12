@@ -28,9 +28,9 @@ class TOC extends Component{
         </li>
       )
       return (
-        <nav>
+        <ul className="cloud">
           {lists}
-        </nav>
+        </ul>
       );
     }
     render(){
