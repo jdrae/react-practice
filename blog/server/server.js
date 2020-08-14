@@ -6,8 +6,10 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // 서버 응답 출력
-app.get('/', (req, res)=>{
-    res.send('hi world');
+// '/api/host' 로 보낸 요청은 무조건 'Darae'로 응답한다.
+// 클라이언트(App.js)에서 'axios'를 이용하여 '/api/host'로 요청을 보낼 것임
+app.get('/api/host', (req, res)=>{ 
+    res.send({host: 'Darae\'s'});
 })
 
 // 서버 실행
