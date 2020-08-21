@@ -2,10 +2,14 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const sequelize = require('./models').sequelize;
+sequelize.sync();
+
+app.use(express.json());
+
 // 포트 할당
 const PORT = process.env.PORT || 4000;
 
-const db = require('./config/db') // RDS 와 서버 연결
 
 // 서버 응답 출력
 // '/api/host' 로 보낸 요청은 무조건 'Darae'로 응답한다.
@@ -30,11 +34,3 @@ app.get('/api/test', (req,res) => {
 app.listen(PORT, ()=>{
     console.log(`server on: http://localhost:${PORT}/`);
 })
-
-// app.use(express.static(path.join(__dirname, 'build')));
-
-// app.get('/', function(req, res) {
-//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
-
-// app.listen(9000);
