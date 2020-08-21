@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
 import './App.css';
-import Axios from 'axios';
+import axios from 'axios';
 
 class App extends Component{
   constructor(props){
     super(props)
     this.state = {
       host: '',
+      test: '',
     }
   }
 
   componentDidMount(){
+    this._dbTest();
     this._getHost();
   }
 
+  _dbTest = async() =>{
+    const res = await axios.get('/api/test');
+    console.log(res.data)
+  }
+
   _getHost = async() => {
-    const res = await Axios.get('/api/host');
+    const res = await axios.get('/api/host');
     this.setState({host: res.data.host})
   }
 

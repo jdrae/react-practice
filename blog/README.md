@@ -36,3 +36,9 @@ npm install nodemon concurrently --save-dev
 ```
 yarn dev
 ```
+
+
+### Add RDS instance by AWS
+
+[https://blog.naver.com/sejun3278/221569678512](https://blog.naver.com/sejun3278/221569678512)
+
