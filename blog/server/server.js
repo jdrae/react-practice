@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const sequelize = require('./models').sequelize;
 sequelize.sync();
+sequelize.sync({force:true}); //모든 테이블의 모든 데이터 삭제
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:false}));
@@ -60,6 +61,22 @@ app.get('/get/data', (req, res) => {
     Teacher.findAll() // SELECT FROM * teachers
     .then(result=>{res.send(result)})
     .catch(err =>{throw err})
+})
+
+app.post('/modify/data',(req, res)=>{
+    Teacher.update({name: req.body.modify.name},{
+        where:{id: req.body.modify.id}
+    })
+    .then(result=>{res.send(result)})
+    .catch(err => {throw err})
+})
+
+app.post('/delete/data', (req,res)=>{
+    Teacher.destroy({
+        where:{id:req.body.delete.id}
+    })
+    .then(res.sendStatus(200))
+    .catch(err=>{throw err})
 })
 
 // 서버 실행

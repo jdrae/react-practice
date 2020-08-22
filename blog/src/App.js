@@ -38,8 +38,7 @@ class App extends Component{
       headers: new Headers()
     })
 
-    if(res.data!='') { //not working -> how to prevent null value?
-      alert('데이터를 추가했습니다.');
+    if(res.data!==null) { //not working -> how to prevent null value?
       return window.location.reload();
     }
   }
@@ -56,6 +55,43 @@ class App extends Component{
       return this.setState({list :cover})
     }
     this.setState({list:res.data});
+  }
+
+  _modify = async(el) => {
+    const modify = prompt(el.name + "을 어떤 이름으로 변경할까요?")
+    if(modify !== null){
+      const body = {
+        name: modify,
+        id: el.id
+      }
+
+      const res = await axios('/modify/data',{
+        method: 'POST',
+        data: {'modify': body},
+        headers: new Headers()
+      })
+
+      if(res.data){
+        return window.location.reload();
+      }
+    }
+  }
+
+  _delete = async(el) => {
+    const remove = window.confirm(el.name+'을 삭제하겠습니까?');
+
+    if(remove){
+      const body = {id: el.id}
+      const res = await axios('/delete/data',{
+        method:'POST',
+        data:{'delete':body},
+        headers:new Headers()
+      })
+
+      if(res.data){
+        return window.location.reload();
+      }
+    }
   }
 
   render(){
@@ -82,12 +118,18 @@ class App extends Component{
                 </div>
               </div>
 
-            {list.length !== 0
+              {list.length !== 0
               ? list.map( (el, key) => {
                 return(
-                  <div key={key} style={{ display : 'grid', lineHeight : '40px', gridTemplateColumns : '32% 35%', width : '50%', marginLeft : '25%'}}>
+                  <div key={key} style={{ display : 'grid', lineHeight : '40px', gridTemplateColumns : '32% 35% 20% 0%', width : '50%', marginLeft : '25%'}}>
                     <div> {el.id} </div>
                     <div> {el.name} </div>
+                    <div
+                      style={{ color : '#ababab' }} 
+                      onClick={() => this._modify(el)}> Modify </div>
+                    <div
+                      style={{ color : '#ababab' }} 
+                      onClick={() => this._delete(el)}> Delete </div>
                   </div>
                 )
               })
