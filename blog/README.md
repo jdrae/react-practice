@@ -42,7 +42,7 @@ yarn dev
 
 [https://blog.naver.com/sejun3278/221569678512](https://blog.naver.com/sejun3278/221569678512)
 
-### Relational Database
+## Relational Database
 
 ```
 db.Teacher = require('./teacher')(sequelize, Sequelize);
@@ -81,3 +81,46 @@ db.Class.belongsToMany(db.Teacher,{
 ```
 through 로 새로운 테이블을 생성하게 되며,
 foreignKey 로 지정한 두 개의 column 이 생성된다.
+
+## Query
+
+```
+//SELECT FROM * teachers
+app.get('/get/data', (req, res) => {
+    Teacher.findAll()
+    .then( result => { res.send(result) })
+    .catch( err => { throw err })
+}) 
+```
+
+```
+//SELECT FROM * teachers WHERE name LIKE James
+app.get('/get/data', (req, res) => {
+    Teacher.findAll({
+        where: { name : 'James' }
+    })
+    .then( result => { res.send(result) })
+    .catch( err => { throw err })
+}) 
+```
+
+```
+app.get('/get/data', (req, res) => {
+    Teacher.findAll({
+        where: { [Op.or]: [{ id : 1 }, { name : 'Alan' }] }
+    })
+    .then( result => { res.send(result) })
+    .catch( err => { throw err })
+}) 
+```
+
+```
+app.get('/get/data', (req, res) => {
+    Teacher.findOne({
+        where : { id : 2 }
+    })
+    .then( result => { res.send(result) })
+    .catch( err => { throw err })
+}) 
+```
+`findAll` sends data in form of Array, while `findOne` send it by object type. So `findAll` can use `map` method, but `findOne` cannot. It requires exceptional code.

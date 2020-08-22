@@ -9,7 +9,7 @@ class App extends Component{
       host: '',
       name: '',
       list: [],
-      update: false,
+      update: false
     }
   }
 

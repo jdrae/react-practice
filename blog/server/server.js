@@ -56,6 +56,12 @@ app.post('/add/data', (req,res)=>{
 
 })
 
+app.get('/get/data', (req, res) => {
+    Teacher.findAll() // SELECT FROM * teachers
+    .then(result=>{res.send(result)})
+    .catch(err =>{throw err})
+})
+
 // 서버 실행
 app.listen(PORT, ()=>{
     console.log(`server on: http://localhost:${PORT}/`);
