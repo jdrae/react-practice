@@ -2,10 +2,20 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const bodyParser = require('body-parser')
 const sequelize = require('./models').sequelize;
 sequelize.sync();
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json())
+
+// Teacher 테이블을 서버로 가져와 읽을 수 있도록
+const {
+    Teacher,
+    Sequelize: { Op }
+} = require('./models');
+sequelize.query('SET NAMES utf8;');
 
 // 포트 할당
 const PORT = process.env.PORT || 4000;
@@ -28,6 +38,22 @@ app.get('/api/test', (req,res) => {
             res.send(err);
         }
     })
+})
+
+app.post('/add/data', (req,res)=>{
+    console.log(req.body)
+
+    Teacher.create({ //INSERT INTO teacher(`id`, `name`) VALUES ('1',req.body.data)
+        name : req.body.data //name 컬럼에 req.body.data 값추가
+    })
+    .then(result => {
+        res.send(result)
+    })
+    .catch(err => {
+        console.log(err)
+        throw err;
+    })
+
 })
 
 // 서버 실행
