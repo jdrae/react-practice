@@ -38,7 +38,7 @@ class App extends Component{
       headers: new Headers()
     })
 
-    if(res.data!==null) { //not working -> how to prevent null value?
+    if(res.data!=null) { //not working -> how to prevent null value?
       return window.location.reload();
     }
   }
