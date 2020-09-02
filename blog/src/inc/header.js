@@ -11,6 +11,7 @@ class header extends Component{
             visible: false,
             id: "",
             password: "",
+            login: false,
         }
     }
 
@@ -41,14 +42,44 @@ class header extends Component{
     }
 
     _selectUserData = async (e) => {
+        const id = this.state.id.trim();
+        const password = this.state.password.trim();
+
+        if(id === ""){
+            return alert("아이디를 입력해주세요");
+        }else if(password === ""){
+            return alert('비밀번호를 입력해주세요');
+        }
+
+        const obj = {id: id, password: password}
+
         const res = await axios('/send/pw', {
             method: 'POST',
-            data: this.state,
+            data: obj,
             headers: new Headers()
         })
 
         if(res.data){
-            console.log(res.data)
+            console.log(res.data.msg);
+            if(res.data.suc){
+                sessionStorage.setItem('login', true)
+                this.setState({login: true})
+                this._closeModal()
+            }  else{
+                return alert('아이디 및 비밀번호가 일치하지 않습니다')
+            }
+        }
+    }
+
+    _logout = function(){
+        sessionStorage.removeItem('login')
+        this.setState({login: false})
+        window.confirm('로그아웃되었습니다.')
+    }
+
+    componentDidMount(){
+        if(sessionStorage.login){
+            this.setState({login: true})
         }
     }
 
@@ -64,7 +95,9 @@ class header extends Component{
                 </div>
 
                 <div className='acenter'>
-                    <h5 onClick={()=>this._openModal()}> 관리자 로그인 </h5>
+                    {this.state.login ? <h5 className="btn_cursor" onClick={()=>this._logout()}> 관리자 로그아웃 </h5> 
+                    : <h5 className="btn_cursor" onClick={()=>this._openModal()}> 관리자 로그인 </h5>
+                    }
                     <Modal visible = {this.state.visible} 
                             width = "400" height = "350" 
                             effect="fadeInDown" 

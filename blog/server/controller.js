@@ -20,11 +20,15 @@ module.exports = {
             // console.log('hash 결과 : ', hash)
 
             model.api.searchInfo(body, hash, result => { 
+                var obj = {};
                 if(result[0]){
-                    res.send('로그인 성공');
+                    obj['suc'] = true;
+                    obj['msg']='로그인 성공'
                 } else{
-                    res.send('로그인 실패');
+                    obj['suc'] = false;
+                    obj['msg'] = '로그인 실패'
                 }
+                res.send(obj);
             })
         },
     }
