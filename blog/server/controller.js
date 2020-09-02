@@ -16,8 +16,6 @@ module.exports = {
         sendPw : (req, res) => {
             const body = req.body;
             const hash = hashing.enc(body.id, body.password, salt)
-            // console.log('salt 값 : ' , salt)
-            // console.log('hash 결과 : ', hash)
 
             model.api.searchInfo(body, hash, result => { 
                 var obj = {};
@@ -30,7 +28,19 @@ module.exports = {
                 }
                 res.send(obj);
             })
-        },
-    }
+        }
+    },
+    
+    add:{
+        board: (req,res)=>{
+            const body = req.body;
+
+            model.add.board(body, result=>{
+                if(result){
+                    res.send(true)
+                }
+            })
+        }
+    },
 }
 

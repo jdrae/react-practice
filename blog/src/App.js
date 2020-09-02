@@ -1,13 +1,18 @@
-import {BrowserRouter, Route, Link, Switch} from 'react-router-dom'
 import React, {Component} from 'react';
 
-import {Home, Test, Head} from './inc'
+import {Head} from './inc'
+import {Main} from './page'
 
 class App extends Component{
     render(){
         return(
             <div className = 'App'>
-                <Head/>
+                <div>
+                    <Head/>
+                </div>
+                <div>
+                    <Main />
+                </div>
             </div>
         );
     }
