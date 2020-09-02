@@ -14,7 +14,7 @@ class write extends Component {
             </div>
 
             <div>
-                <textarea name="contents" id='content_txt'> </textarea>
+                <textarea name="contents" id='content_txt'></textarea>
             </div>
         </div>
     );
