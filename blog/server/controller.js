@@ -7,37 +7,26 @@ AWS.config.loadFromPath(
 
 const model = require('./model');
 
+const hashing = require(path.join(__dirname, 'config', 'hashing.js'))
+const salt = require(path.join(__dirname, 'config', 'db.json')).salt
+
 module.exports = {
     needs: () => upload,
-    api : { //연관된 컨트롤러들을 담는 키 역할
-        // 모델에 접근할 수 있는 경로 설정
-        getData : (req, res) => {
-            model.api.getData(data=>{
-                return res.send(data)
-            })
-        },
-        addData : (req, res) => {
-            let body = req.body
+    api : { 
+        sendPw : (req, res) => {
+            const body = req.body;
+            const hash = hashing.enc(body.id, body.password, salt)
+            // console.log('salt 값 : ' , salt)
+            // console.log('hash 결과 : ', hash)
 
-            model.api.addData( body, data => {
-                return res.send(true)
-            })
-        },
-        modifyData : (req, res) => {
-            let body = req.body
-
-            model.api.modifyData( body, data => {
-                return res.send(true)
-            })
-        },
-        deleteData : (req, res) => {
-            let body = req.body
-
-            model.api.deleteData( body, data => {
-                return res.send(true)
+            model.api.searchInfo(body, hash, result => { 
+                if(result[0]){
+                    res.send('로그인 성공');
+                } else{
+                    res.send('로그인 실패');
+                }
             })
         },
     }
 }
 
-//외부에서 controller.api.getData 등으로 접근 -> 역할을 라우터에서 할당
