@@ -5,6 +5,7 @@ const sequelize = require('./models').sequelize;
 const {
     Admin,
     Board,
+    Category,
     Sequelize: { Op }
 } = require('./models');
 sequelize.query('SET NAMES utf8;');
@@ -30,7 +31,8 @@ module.exports = {
                 title: body.title,
                 contents: body.contents,
                 date: new Date(),
-                view_cnt: 0
+                view_cnt: 0,
+                cat_id: 0,
             })
             .then(data=>{
                 callback(true)
@@ -48,6 +50,7 @@ module.exports = {
             if(body.search){
                 search = '%'+body.search+'%';
             }
+            
             Board.findAll({
                 where:{
                     title:{
@@ -55,7 +58,8 @@ module.exports = {
                     },
                     contents:{
                         [Op.like]:search
-                    }
+                    },
+                    cat_id: body.category
                 },
                 limit: (body.page * body.limit),
                 offset: (body.page - 1) * body.limit,
@@ -80,7 +84,8 @@ module.exports = {
                     },
                     contents:{
                         [Op.like]: search
-                    }
+                    },
+                    cat_id: body.category
                 }
             })
             .then(result=>{
@@ -97,6 +102,11 @@ module.exports = {
             .catch(err=>{
                 throw err;
             })
+        },
+        category:(callback)=>{
+            Category.findAll()
+            .then(result => {callback(result);})
+            .catch(err=>{throw err;})
         }
     },
     update:{

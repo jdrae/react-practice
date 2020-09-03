@@ -2,19 +2,41 @@ import React, {Component} from 'react';
 import { Route} from 'react-router-dom';
 import { List, Write, View } from './index.js'; 
 import { Right_Write } from './right/index.js';
+import { Category } from './left/index.js'; 
 import './main.css';
 
 class main extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            category: '',
+        }
+    }
 
+    _changeCategory = (target)=>{
+        this.setState({category: target});
+        sessionStorage.setItem('category', target);
+    }
+
+    _withProps = function (Component, props){
+        return function(matchProps){
+            return <Component {...props} {...matchProps}/>
+        }
+    }
+    
     render(){
+        const {_changeCategory} = this;
+        const {category} = this.state;
         return(
             <div className='Mains'>
                 <div id='Mains-left'>
-                    <h3> Left Side </h3>
+                    <Route path='/' 
+                    render = {props => <Category _changeCategory={_changeCategory} /> }
+                    exact/>
                 </div>
     
                 <div>
-                    <Route path='/' component={List} exact/>
+                    <Route path='/' component={this._withProps(List, {category: this.state.category})} exact/>
                     <Route path='/write' component={Write} />
                     <Route path='/view/:data' component={View} />
                 </div>

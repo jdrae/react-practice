@@ -65,6 +65,11 @@ module.exports = {
             model.get.board_data(body, data=>{
                 res.send(data)
             })
+        },
+        category: (req,res) =>{
+            model.get.category(data =>{
+                res.send(data)
+            })
         }
     },
     update:{
@@ -76,21 +81,18 @@ module.exports = {
             const cookie_name = 'board_'+body.id
             
             const exist_cookie = req.cookies[cookie_name]
+
             if(!exist_cookie){
                 res.cookie(cookie_name, true, {
                     expires: expires
                 });    
-                console.log("created")
-            }else{
-                console.log("already")
-            }
-            
 
-            model.update.view_cnt(body,result=>{
-                if(result){
-                    res.send(true);
-                }
-            })
+                model.update.view_cnt(body,result=>{
+                    if(result){
+                        res.send(true);
+                    }
+                })
+            }
         }
     }
 }
