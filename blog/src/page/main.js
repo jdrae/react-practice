@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Route} from 'react-router-dom';
-import { List, Write } from './index.js'; 
+import { List, Write, View } from './index.js'; 
 import { Right_Write } from './right/index.js';
 import './main.css';
 
@@ -17,9 +17,9 @@ class main extends Component{
                 </div>
     
                 <div>
-                    <h2> This is Main layout </h2>
                     <Route path='/' component={List} exact/>
                     <Route path='/write' component={Write} />
+                    <Route path='/view/:data' component={View} />
                 </div>
     
                 <div id='Mains-right'>

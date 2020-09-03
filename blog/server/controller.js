@@ -54,12 +54,28 @@ module.exports = {
         },
         
         board_cnt : (req, res) => {
-
-            model.get.board_cnt(cnt => {
+            const body = req.body;
+            model.get.board_cnt(body, cnt => {
               const result = { cnt : cnt }
               res.send(result)
             })
+        },
+        board_data:(req,res) => {
+            const body = req.body;
+            model.get.board_data(body, data=>{
+                res.send(data)
+            })
         }
     },
+    update:{
+        view_cnt: (req,res)=>{
+            const body = req.body;
+            model.update.view_cnt(body,result=>{
+                if(result){
+                    res.send(true);
+                }
+            })
+        }
+    }
 }
 
