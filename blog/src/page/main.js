@@ -5,9 +5,6 @@ import { Right_Write } from './right/index.js';
 import './main.css';
 
 class main extends Component{
-    constructor(props){
-        super(props)
-    }
 
     render(){
         return(

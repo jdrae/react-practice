@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const router = require('./route')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const sequelize = require('./models').sequelize;
 
 sequelize.sync();
@@ -10,7 +11,7 @@ sequelize.sync();
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 app.use('/',router);
 
 

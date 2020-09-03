@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, Link, Switch} from 'react-router-dom';
+import {Route, Link} from 'react-router-dom';
 import Modal from 'react-awesome-modal';
 import axios from 'axios';
 import '../App.css';

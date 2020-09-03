@@ -3,9 +3,7 @@ import '../main.css';
 import axios from 'axios';
 
 class right_write extends Component {
-  constructor(props) {
-    super(props)
-  }
+
 
   _submitBoard = async function(){
       const title = document.getElementsByName('title')[0].value.trim();

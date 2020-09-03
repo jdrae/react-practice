@@ -29,7 +29,7 @@ class view extends Component {
   }
 
   _addViewCnt = async function(board_id){
-    const addView = await axios('/update/view_cnt',{
+    await axios('/update/view_cnt',{
       method: 'POST',
       headers: new Headers(),
       data: {id: board_id}

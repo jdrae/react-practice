@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
 class write extends Component {
-  constructor(props) {
-    super(props)
-  }
+
 
   render() {
 

@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import './main.css';
 
 class search extends Component {
-  constructor(props) {
-    super(props)
-  }
+
 
   render() {
     const {search} = this.props;
