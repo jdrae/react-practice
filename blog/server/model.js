@@ -3,9 +3,9 @@ const sequelize = require('./models').sequelize;
 
 // Teacher 테이블을 서버로 가져와 읽을 수 있도록
 const {
-    Admin,
     Board,
     Category,
+    User,
     Sequelize: { Op }
 } = require('./models');
 sequelize.query('SET NAMES utf8;');
@@ -14,8 +14,8 @@ sequelize.query('SET NAMES utf8;');
 module.exports = {
     api:{
         searchInfo: (body, hash, callback) =>{
-            Admin.findAll({
-                where: {[Op.and]: [{user_id: body.id, password: hash}]}
+            User.findAll({
+                where: {[Op.and]: [{id: body.id, password: hash}]}
             })
             .then(data =>{
                 callback(data)
@@ -53,6 +53,28 @@ module.exports = {
                         name: body.name
                     })
                     .then(()=>{callback(true)})
+                }
+            })
+        },
+        user : (body, hash_pw, now, callback) => {
+            User.count({
+                where : { id : body.id }
+            })
+            .then(cnt => {
+                if(cnt > 0) {
+                    callback(false);
+                } else {
+                    User.create({
+                             admin : 'N',
+                             id : body.id,
+                             password : hash_pw,
+                             name : body.name,
+                             birthday : body.birthday,
+                             sex : body.sex,
+                             email : body.email,
+                             signup_date : now
+                    })
+                    .then( () => callback(true) );
                 }
             })
         }

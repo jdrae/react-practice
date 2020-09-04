@@ -82,7 +82,7 @@ class category extends Component {
   render() {
     const {category} = this.state;
     const {_changeCategory} = this.props;
-    const { login } = this.props;
+    const { login, admin } = this.props;
     const {edit} = this.state;
     let pre_cat = '';
     if(sessionStorage.getItem('category')){
@@ -96,7 +96,8 @@ class category extends Component {
             className={pre_cat === ''? "pre_cat" : null}
             to='/' 
             onClick={()=>_changeCategory('')}> 전체 보기 </Link> 
-            {login ? !edit ? <input type='button' value='Edit' className='Edit' onClick={() => this.setState({ edit : !edit })}/>
+            {login && admin === 'Y' ? 
+                      !edit ? <input type='button' value='Edit' className='Edit' onClick={() => this.setState({ edit : !edit })}/>
                            : <input type='button' value='Add' className='Edit' onClick={()=>this._addCategory()}/> 
              : null}
             <hr /></li>

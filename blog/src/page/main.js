@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Route} from 'react-router-dom';
-import { List, Write, View } from './index.js'; 
+import { List, Write, View, Signup } from './index.js'; 
 import { Right_Write } from './right/index.js';
 import { Category } from './left/index.js'; 
 import './main.css';
@@ -37,13 +37,14 @@ class main extends Component{
 
         const {_changeCategory} = this;
         const {category} = this.state;
-        const {login} = this.props;
+        const {login, admin} = this.props;
         return(
             <div className='Mains'>
                 <div id='Mains-left'>
-                    <Route path='/' 
-                    render = {props => <Category _changeCategory={_changeCategory} login = {login}/> }
-                    exact/>
+                    <Category _changeCategory={_changeCategory}
+                        login={login}
+                        admin = {admin}
+                        />
                 </div>
     
                 <div>
@@ -52,6 +53,9 @@ class main extends Component{
                         _getContents : _getContents, 
                         contents : contents })} />
                     <Route path='/view/:data' component={View} />
+                    <Route path='/signup' 
+                        component={Signup}
+                    />
                 </div>
     
                 <div id='Mains-right'>

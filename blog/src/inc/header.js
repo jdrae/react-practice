@@ -59,9 +59,8 @@ class header extends Component{
         })
 
         if(res.data){
-            console.log(res.data.msg);
             if(res.data.suc){
-                this.props._login()
+                this.props._login(res.data)
                 this._closeModal()
             }  else{
                 return alert('아이디 및 비밀번호가 일치하지 않습니다')
@@ -75,11 +74,11 @@ class header extends Component{
     }
 
     render(){
-        const {login} = this.props;
+        const {login, admin} = this.props;
         return(
             <div className='header_grid'>
                 <div className='acenter'>
-                    {login 
+                    {login && admin ==='Y'
                     ? <h5> <Link to='/write'> 포스트 작성 </Link> </h5>
                     : null
                     }
@@ -92,15 +91,16 @@ class header extends Component{
                 </div>
 
                 <div className='acenter'>
-                    {login ? <h5 className="btn_cursor" onClick={()=>this._logout()}> 관리자 로그아웃 </h5> 
-                    : <h5 className="btn_cursor" onClick={()=>this._openModal()}> 관리자 로그인 </h5>
+                    <ul className = "btn_list">
+                    {login ? <li className="btn_cursor" onClick={()=>this._logout()}> 로그아웃 </li> 
+                    : <li className="btn_cursor" onClick={()=>this._openModal()}> 로그인 </li>
                     }
                     <Modal visible = {this.state.visible} 
                             width = "400" height = "350" 
                             effect="fadeInDown" 
                             onClickAway={()=>this._closeModal()}>
                         <div>
-                            <h4 className='acenter login_tit'> 관리자 로그인 </h4>
+                            <h4 className='acenter login_tit'> 로그인 </h4>
                             <form>
                             <div className='login_div'>
                             <div className='login_input_div'>
@@ -121,6 +121,11 @@ class header extends Component{
                             </form>
                         </div>
                     </Modal>
+                    {!login
+                        ? <li> <Link to='/signup'> 회원가입 </Link> </li>
+                        : null
+                    }
+                    </ul>
                 </div>
             </div>
         );
