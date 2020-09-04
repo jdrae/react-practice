@@ -40,6 +40,20 @@ module.exports = {
                     res.send
                 }
             })
+        },
+        category: (req,res)=>{
+            const body = req.body;
+            model.add.category(body, result=>{
+                var obj = {};
+                if(result){
+                    obj['suc'] = true;
+                    obj['msg'] = '카테고리가 생성되었습니다.';
+                } else{
+                    obj['suc'] = false;
+                    obj['msg'] = '이미 존재하는 카테고리입니다.'
+                }
+                res.send(obj)
+            })
         }
     },
 
@@ -94,6 +108,34 @@ module.exports = {
                 })
             }
         }
-    }
+    },
+    delete:{
+        category: (req,res) =>{
+            const body = req.body;
+            model.delete.category(body, result=>{
+                if(result){
+                    res.send(result);
+                }
+            })
+        }
+    },
+    modify : {
+        category : (req, res) => {
+          const body = req.body;
+  
+          model.modify.category(body, result => {
+            var obj = {};
+            if(result) {
+                obj['suc'] = true;
+                obj['msg'] = '카테고리가 변경되었습니다.';
+            } else {
+                obj['suc'] = false;
+                obj['msg'] = '이미 존재하는 카테고리입니다.';
+            }
+                    
+            res.send(obj)
+          })
+        }
+      },
 }
 

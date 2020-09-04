@@ -40,6 +40,21 @@ module.exports = {
             .catch(err => {
                 throw err;
             })
+        },
+        category: (body, callback)=>{
+            Category.count({
+                where: {name: body.name}
+            })
+            .then(cnt=>{
+                if(cnt>0){
+                    callback(false);
+                } else{
+                    Category.create({
+                        name: body.name
+                    })
+                    .then(()=>{callback(true)})
+                }
+            })
         }
     },
     // SELECT count(*) AS `count` FROM `boards` AS `board` 
@@ -121,5 +136,46 @@ module.exports = {
                 throw err;
             })
         }
-    }
+    },
+    delete:{
+        category: (body, callback)=>{
+            Category.destroy({
+                where: {id: body.id}
+            })
+            .then(()=>{
+                Board.update({cat_id: 0},{
+                    where: {cat_id: body.id}
+                })
+                .then(()=>{callback(true)})
+                .catch(err => {throw err;})
+            })
+            /* 하위 게시글 전부 삭제
+            .then(()=>{
+                Board.destroy({
+                    where: {cat_id: body.id}
+                })
+                .then(()=>{callback(true)})
+                .catch(err=>{throw err;})
+            })*/
+        }
+    },
+    modify : {
+        category : (body, callback) => {
+            Category.count({
+                where : { name : body.name }
+            })
+            .then(cnt => {
+                if(cnt > 0) {
+                    callback(false);
+                    
+                } else {
+                    Category.update({ name : body.name }, {
+                        where : { id : body.id }
+                    })
+                    .then( () => { callback(true) })
+                    .catch(err => { throw err; })
+                }
+            })
+        }
+    },
 }

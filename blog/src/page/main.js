@@ -27,11 +27,12 @@ class main extends Component{
     render(){
         const {_changeCategory} = this;
         const {category} = this.state;
+        const {login} = this.props;
         return(
             <div className='Mains'>
                 <div id='Mains-left'>
                     <Route path='/' 
-                    render = {props => <Category _changeCategory={_changeCategory} /> }
+                    render = {props => <Category _changeCategory={_changeCategory} login = {login}/> }
                     exact/>
                 </div>
     

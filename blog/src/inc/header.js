@@ -11,7 +11,6 @@ class header extends Component{
             visible: false,
             id: "",
             password: "",
-            login: false,
         }
     }
 
@@ -62,8 +61,7 @@ class header extends Component{
         if(res.data){
             console.log(res.data.msg);
             if(res.data.suc){
-                sessionStorage.setItem('login', true)
-                this.setState({login: true})
+                this.props._login()
                 this._closeModal()
             }  else{
                 return alert('아이디 및 비밀번호가 일치하지 않습니다')
@@ -72,22 +70,16 @@ class header extends Component{
     }
 
     _logout = function(){
-        sessionStorage.removeItem('login')
-        this.setState({login: false})
-        window.confirm('로그아웃되었습니다.')
-    }
-
-    componentDidMount(){
-        if(sessionStorage.login){
-            this.setState({login: true})
-        }
+        this.props._logout()
+        window.alert('로그아웃되었습니다.')
     }
 
     render(){
+        const {login} = this.props;
         return(
             <div className='header_grid'>
                 <div className='acenter'>
-                    {this.state.login 
+                    {login 
                     ? <h5> <Link to='/write'> 포스트 작성 </Link> </h5>
                     : null
                     }
@@ -100,7 +92,7 @@ class header extends Component{
                 </div>
 
                 <div className='acenter'>
-                    {this.state.login ? <h5 className="btn_cursor" onClick={()=>this._logout()}> 관리자 로그아웃 </h5> 
+                    {login ? <h5 className="btn_cursor" onClick={()=>this._logout()}> 관리자 로그아웃 </h5> 
                     : <h5 className="btn_cursor" onClick={()=>this._openModal()}> 관리자 로그인 </h5>
                     }
                     <Modal visible = {this.state.visible} 
