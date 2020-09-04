@@ -50,8 +50,8 @@ class view extends Component {
                 </div>
               </div>
               
-              <div>
-                <textarea id='content_txt' name='contents' defaultValue={data.data[0].contents} readOnly></textarea>
+              <div id ='contents_div'
+              dangerouslySetInnerHTML={ { __html : data.data[0].contents }} >
               </div>
             </div>
           : null

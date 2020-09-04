@@ -7,7 +7,7 @@ class right_write extends Component {
 
   _submitBoard = async function(){
       const title = document.getElementsByName('title')[0].value.trim();
-      const contents = document.getElementsByName('contents')[0].value.trim();
+      const contents = this.props.contents;
 
       if(title===""){
           return alert('제목을 입력해주세요');
@@ -25,6 +25,8 @@ class right_write extends Component {
     if(res.data){
         alert('글이 등록되었습니다.');
         return window.location.replace('/')
+    } else{
+     alert('작성에 실패했습니다');
     }
   }
 
